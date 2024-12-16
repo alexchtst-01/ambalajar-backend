@@ -3,13 +3,36 @@ import cors from "cors";
 import dotenv from "dotenv";
 import AuthRoutes from "./api/routes/AuthenticationRoute.js";
 import morgan from "morgan";
-import { configMainDB, configSecondaryDB } from "./api/config/config.js";
+import { configMainDB } from "./api/config/config.js";
+
+import session from "express-session";
+import SequelizeStore from "connect-session-sequelize";
+import mainDB from "./api/database/mainDb.js";
 
 dotenv.config();
+
+const sessStore = SequelizeStore(session.Store);
+
+const store = new sessStore({
+  db: mainDB,
+});
 
 const server = express();
 server.use(express.json());
 
+server.use(
+  session({
+    secret: process.env.SESS_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: store,
+    cookie: {
+      secure: "auto",
+      /* ini lu isi nanti */
+      // domain: ''
+    },
+  })
+);
 server.use(
   cors({
     origin: "http://localhost:5173",
@@ -27,7 +50,7 @@ server.get("/", async (req, res) => {
 server.use(AuthRoutes);
 
 const isConfigToMainDB = configMainDB();
-const isConfigToSecondaryDB = configSecondaryDB();
+store.sync();
 
 server.listen(process.env.SERVER_PORT, () => {
   console.log(
