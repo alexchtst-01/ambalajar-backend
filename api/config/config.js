@@ -23,7 +23,7 @@ const configSecondaryDB = async () => {
     console.log("berashil terkoneksi ke mongodb");
     return true;
   } catch (error) {
-    console.log(`terjadi kesalahan configurasi ke mainDB ${error.message}`);
+    console.log(`terjadi kesalahan configurasi ke mongodb ${error.message}`);
     return false;
   }
 };
