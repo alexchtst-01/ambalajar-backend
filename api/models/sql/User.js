@@ -52,22 +52,22 @@ export async function userseeder() {
   const users = [
     {
       email: "student1@ambaschool.com",
-      pass: "student1",
+      password: "student1",
       role: "student",
     },
     {
       email: "student2@ambaschool.com",
-      pass: "student2",
+      password: "student2",
       role: "student",
     },
     {
       email: "teacher@ambaschool.com",
-      pass: "teacher",
+      password: "teacher",
       role: "teacher",
     },
     {
       email: "admin@ambaschool.com",
-      pass: "admin",
+      password: "admin",
       role: "admin",
     },
   ];
