@@ -30,10 +30,9 @@ const Course = mainDB.define(
     },
     enrolKey: {
       type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: "",
+      allowNull: true,
       validate: {
-        notEmpty: true,
+        notEmpty: false,
       },
     },
   },
