@@ -5,7 +5,7 @@ import {
   getStudentCourseSummarybyID,
   getStudentsCourse,
   studentTakeCourse,
-} from "../controller/StudentCourseController.js";
+} from "../controller/CourseController.js";
 
 const CourseRoutes = express.Router();
 

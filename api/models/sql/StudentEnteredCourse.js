@@ -45,26 +45,26 @@ const StudentCourse = mainDB.define(
 
 Course.hasMany(StudentCourse, {
   foreignKey: "courseId",
-  as: "student",
+  as: "course",
   onDelete: "CASCADE",
   onUpdate: "CASCADE",
 });
 
 StudentCourse.belongsTo(Course, {
   foreignKey: "courseId",
-  as: "student",
+  as: "course",
 });
 
 User.hasMany(StudentCourse, {
   foreignKey: "studentId",
-  as: "course",
+  as: "student",
   onDelete: "CASCADE",
   onUpdate: "CASCADE",
 });
 
 StudentCourse.belongsTo(User, {
   foreignKey: "studentId",
-  as: "course",
+  as: "student",
 });
 
 export default StudentCourse;
