@@ -8,6 +8,7 @@ import { configMainDB } from "./api/config/config.js";
 import session from "express-session";
 import SequelizeStore from "connect-session-sequelize";
 import mainDB from "./api/database/mainDb.js";
+import CourseRoutes from "./api/routes/CourseRoutes.js";
 
 dotenv.config();
 
@@ -48,6 +49,7 @@ server.get("/", async (req, res) => {
 });
 
 server.use(AuthRoutes);
+server.use(CourseRoutes);
 
 const isConfigToMainDB = configMainDB();
 store.sync();
