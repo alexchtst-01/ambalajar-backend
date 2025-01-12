@@ -182,3 +182,63 @@ export const studentTakeCourse = async (req, res) => {
     });
   }
 };
+
+export const getAllCourse = async (req, res) => {
+  try {
+    const courses = await Course.findAll({
+      attributes: ["courseId", "name"],
+    });
+    if (courses.length < 1) {
+      return res.status(200).json({
+        msg: "belum ada course",
+        data: {
+          courses,
+        },
+      });
+    }
+    return res.status(200).json({
+      msg: `berhasil meretrieve data sebanyak ${courses.length} course`,
+      data: {
+        courses,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: `terjadi kesalahan ${error.message}`,
+      data: {
+        err: error,
+      },
+    });
+  }
+};
+
+export const getCourseByID = async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    const courses = await Course.findOne({
+      where: { courseId: courseId },
+      attributes: ["courseId", "name", "desc", "enrolKey"],
+    });
+    if (!courses) {
+      return res.status(200).json({
+        msg: "course tidak ditemukan",
+        data: {
+          courses,
+        },
+      });
+    }
+    return res.status(200).json({
+      msg: `berhasil meretrieve data ${courses.name}`,
+      data: {
+        courses,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: `terjadi kesalahan ${error.message}`,
+      data: {
+        err: error,
+      },
+    });
+  }
+};

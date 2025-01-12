@@ -19,6 +19,7 @@ export const login = async (req, res) => {
         msg: "user tidak ditemukan",
         data: {
           nonExistingEmail: email,
+          isLoggedIn: false,
         },
       });
     }
@@ -45,6 +46,7 @@ export const login = async (req, res) => {
           existuser.userId /* kalo di development perlu kalo di production ga perlu */,
         email: existuser.email,
         role: existuser.role,
+        isLoggedIn: true,
       },
     });
   } catch (error) {
@@ -67,11 +69,17 @@ export const me = async (req, res) => {
         },
       });
     }
+    const existuser = await User.findOne({
+      where: { userId: req.session.userId },
+    });
     return res.status(200).json({
       msg: "anda sudah terauthentikasi dan login",
       data: {
-        userId: req.session.userId,
-        role: req.session.role,
+        userId:
+          existuser.userId /* kalo di development perlu kalo di production ga perlu */,
+        email: existuser.email,
+        role: existuser.role,
+        isLoggedIn: true,
       },
     });
   } catch (error) {
